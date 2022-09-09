@@ -43,11 +43,10 @@ img{
 
 .paper{
     background-color: #fff;
-    width: 400px;
-    height: 616px;
-    margin-top: 100px;
-    margin-right: 30px;
-    margin-left: 21%;
+    width: 25vw;
+    height: 70vh;
+    margin-top: 10vh;
+    margin-left: 20vw;
     position: absolute;
 }
 .paper h2{
@@ -109,7 +108,7 @@ a {
     opacity: 0.9;
 }
 
-.book {
+/* .book {
     position: relative;
     box-sizing: border-box;
     width: 500px;
@@ -182,4 +181,4 @@ a {
     -webkit-transform: rotateY(-185deg) translateZ(0px);
     transform: rotateY(-185deg) translateZ(0px);
     background-color: #38b7b0;
-}
+} */
