@@ -34,14 +34,12 @@ export default function Top(props) {
     }, []);
 
     const ImgStyle = styled.img`
-        width: ${windowDimensions.width * 0.8 * 0.5}px;
-        height:${windowDimensions.height * 0.9}px;
+        width: ${windowDimensions.width * 0.66 * 0.5}px;
+        height:${windowDimensions.height * 0.94}px;
     `;
 
     const BookStyle = styled.h1`
-        margin-top:50px;
-        margin-left:10%;
-        margin-right:10%;
+        margin: 3vh 17vw 0vh 17vw;
     `;
 
     const WhiteStyle = styled.div`
@@ -110,8 +108,8 @@ export default function Top(props) {
             </div>
             <BookStyle>
                 <HTMLFlipBook
-                    width={windowDimensions.width * 0.8 * 0.5}
-                    height={windowDimensions.height * 0.9}
+                    width={windowDimensions.width * 0.66 * 0.5}
+                    height={windowDimensions.height * 0.94}
                     showCover={true}
                     drawShadow={true}
                     ref={book}
@@ -161,7 +159,6 @@ export default function Top(props) {
                     {props.diaries.map((diary, index)=> (
                         <WhiteStyle className="demoPage">
                             <ImgStyle src={diary.image_path}/>
-                            <p>{index}</p>
                         </WhiteStyle>
                     ))}
                     <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
@@ -172,7 +169,7 @@ export default function Top(props) {
                     <Create/>
                 </HTMLFlipBook>
             </BookStyle>
-            <button onClick={()=> {flip(2)}}>目次</button>
+            {/* <button onClick={()=> {flip(2)}}>目次</button> */}
         </div>
     );
 }
