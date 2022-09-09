@@ -11,14 +11,6 @@ import { Inertia } from '@inertiajs/inertia'
 
 
 export default function Top(props) {
-    const getWindowDimensions = () => {
-        const { innerWidth: width, innerHeight: height } = window;
-        return {
-            width,
-            height
-        };
-    }
-    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
     useEffect(() => {
         arryDivide(dummyArr, 10);
         Echo.channel('chat').listen('DiaryWrited', e => {
@@ -32,6 +24,17 @@ export default function Top(props) {
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
+
+    //画面の幅と高さを取得するやつ
+    const getWindowDimensions = () => {
+        const { innerWidth: width, innerHeight: height } = window;
+        return {
+            width,
+            height
+        };
+    }
+
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions()); //高さと横幅をstateに入れる
 
     const ImgStyle = styled.img`
         width: ${windowDimensions.width * 0.66 * 0.5}px;
@@ -108,6 +111,7 @@ export default function Top(props) {
             </div>
             <BookStyle>
                 <HTMLFlipBook
+                    usePortrait={false}
                     width={windowDimensions.width * 0.66 * 0.5}
                     height={windowDimensions.height * 0.94}
                     showCover={true}
