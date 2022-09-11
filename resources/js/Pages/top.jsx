@@ -7,10 +7,12 @@ import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import CreateForm from './CreateForm';
 import { Inertia } from '@inertiajs/inertia';
+import { useMedia } from "react-use";
 
 
 
 export default function Top(props) {
+    const isWide = useMedia("(min-width: 440px)"); // useMediaの指定の仕方を修正
     //画面がロードされた時に行う処理
     useEffect(() => {
         arryDivide(dummyArr, 10); //tenDividedDiariesというstateに10個ずつ日記データを入れていく
@@ -50,9 +52,18 @@ export default function Top(props) {
         height:${windowDimensions.height * 0.94}px;
     `;
 
-    //多分日記のやつ
+    const SpImgStyle = styled.img`
+        width: ${windowDimensions.width * 0.9}px;
+        height:${windowDimensions.width * 0.9 * 1.2}px;
+    `;
+
+    //日記のやつ
     const BookStyle = styled.div`
         margin: 3vh 17vw 0vh 17vw;
+    `;
+
+    const SpBookStyle = styled.div`
+        margin: 3vh 5vw 0vh 5vw;
     `;
 
     //白背景
@@ -117,7 +128,7 @@ export default function Top(props) {
         frame.style.visibility = "hidden";
     }
 
-    return (
+    const pc = (
         <div className='content'>
             <div className="paper">
                 <div id="fadeLayer" className="FadeInFrame"></div>
@@ -198,4 +209,77 @@ export default function Top(props) {
             {/* <button onClick={()=> {flip(2)}}>目次</button> */}
         </div>
     );
+
+    const smartphone = (
+        <div className='content'>
+            <SpBookStyle>
+                <HTMLFlipBook
+                    width={windowDimensions.width * 0.9}
+                    height={windowDimensions.width * 0.9 * 1.2}
+                    showCover={true}
+                    drawShadow={true}
+                    ref={book}
+                    flippingTime={flipSpeed}
+                    onInit={()=> {
+                        if(props.pageNumber){
+                            flipMany(Math.trunc((Number(props.pageNumber) + 3 + Number(tenDividedDiaries.length))/2), 280);
+                        }
+                    }}
+                >
+                    <div className="demoPage"><SpImgStyle src={Poster}/></div>
+                    <div className="demoPage"><SpImgStyle src={Poster}/></div>
+                    <WhiteStyle>
+                        <button onClick={() => flip(2)}>
+                            <div className="menu">
+                                <h1>一覧を見る</h1>
+                            </div>
+                        </button>
+                        <button onClick={randomOpen}>
+                            <div className="menu">
+                                <h1>日記を開く</h1>
+                            </div>
+                        </button>
+                        <button onClick={async() => {
+                            flip(13);
+                            await sleep(1500);
+                            Inertia.get('/diary/create')
+                        }}>
+                            <div className="menu">
+                                <h1>日記を書く</h1>
+                            </div>
+                        </button>
+                        <button type="button" onClick={FadeInLinkClick}>暗転テスト</button>
+                        <Link href={ route('register')}>ユーザー登録</Link>
+                    </WhiteStyle>
+                    {tenDividedDiaries.map((diaries, index) => (
+                        <WhiteStyle>
+                            {diaries.map((diary, i) => (
+                                <div>
+                                    <button onClick={() => {flip(index*10 + 3 + tenDividedDiaries.length + i)}}>{diary.title}</button>
+                                    <button>{index*10 + 3 + tenDividedDiaries.length + i}</button>
+                                </div>
+                            ))}
+                        </WhiteStyle>
+                    ))}
+
+                    {props.diaries.map((diary, index)=> (
+                        <WhiteStyle className="demoPage">
+                            <ImgStyle src={diary.image_path}/>
+                        </WhiteStyle>
+                    ))}
+                    <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
+                    <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
+                    <CreateForm/>
+                    <CreateForm/>
+                    <CreateForm/>
+                    <CreateForm/>
+                </HTMLFlipBook>
+            </SpBookStyle>
+            {/* <button onClick={()=> {flip(2)}}>目次</button> */}
+        </div>
+    );
+
+    return <>
+        {isWide ? pc : smartphone}
+    </> ;
 }
