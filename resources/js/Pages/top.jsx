@@ -1,16 +1,17 @@
 import React, { useRef, useState, useEffect } from "react"
-import { Link, Head, useForm } from '@inertiajs/inertia-react';
+import { Link, Head } from '@inertiajs/inertia-react';
 import './css/main.css';
 import Book2 from './css//image/IMG_4376.jpg';
 import Poster from './css//image/poster.png';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import Create from './CreateForm';
-import { Inertia } from '@inertiajs/inertia'
+import { Inertia } from '@inertiajs/inertia';
 
 
 
 export default function Top(props) {
+    //画面がロードされた時に行う処理
     useEffect(() => {
         arryDivide(dummyArr, 10);
         Echo.channel('chat').listen('DiaryWrited', e => {
@@ -36,49 +37,65 @@ export default function Top(props) {
 
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions()); //高さと横幅をstateに入れる
 
+    //ここからstyled-component。つまりcss。
+
+    //日記の画像用
     const ImgStyle = styled.img`
         width: ${windowDimensions.width * 0.66 * 0.5}px;
         height:${windowDimensions.height * 0.94}px;
     `;
 
+    //多分日記のやつ
     const BookStyle = styled.h1`
         margin: 3vh 17vw 0vh 17vw;
     `;
 
+    //白背景
     const WhiteStyle = styled.div`
         background-color: white;
     `;
 
-    const [tenDividedDiaries, setTenDividedDiaries] = useState([]); //渡されたデータを分割したデータ
-    const dummyArr = [].concat(props.diaries);
-    function arryDivide(arr, num) {  //配列を分割してtenDivideDiariesに代入していく
-        let tmpArr;
-        let tmpDivide = [];
-        while (arr.length > 0) {
+    const [tenDividedDiaries, setTenDividedDiaries] = useState([]); //日記用データを分割して入れるstate
+
+    const dummyArr = [].concat(props.diaries);  //日記用データのコピー。これに破壊的変更を加えていく。
+
+    //配列を分割してtenDivideDiariesに代入していく関数
+    function arryDivide(arr, num) {
+        let tmpArr;  //10個ずつ切り取ったやつ
+        let tmpDivide = []; //一時的に10個ずつ日記データを入れていく配列
+        while (arr.length > 0) { //日記用データがある限り10個ずつ分割していく
             tmpArr = arr.splice(0, num);
             tmpDivide.push(tmpArr);
         }
         setTenDividedDiaries(tmpDivide);
     }
 
-    const [flipSpeed, setFlipSpeed] = useState(props.pageNumber? 200:500); //flipをめくる速度をstateで管理しようと思ったけどできなかった。
+    const [flipSpeed, setFlipSpeed] = useState(400); //flipをめくる速度をstateで管理しようと思ったけどできなかった。
 
 
     const  book  =  useRef () ;  //本のページをめくるのに必要
 
+    //引数のページに飛んでいく。アニメーションは1めくり。
     function flip (n) {
         book.current.pageFlip().flip(n)
     }
 
-    const sleep = waitTime => new Promise( resolve => setTimeout(resolve, waitTime) );  //引数に入力した数字だけ動作を停止
-
+    //引数の数だけめくる。第2引数はめくる速度
     async function flipMany(n, speed=1000)  {
-        setFlipSpeed(200);  //速度200をセットしてるけど何も変わらず...
         for (let i of [...Array(Number(n))]) {
             book.current.pageFlip().flipNext(); //次のフリップへ（アニメーション付き）
             await sleep(speed); //デフォルトなら
         }
     }
+
+    function randomOpen() {
+        const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+        const randomNumber =randRange(1, Number(props.diaries.length));
+        flipMany(2 + (Number(tenDividedDiaries.length) + randomNumber)/2, 280 );
+    }
+
+    //引数に入力した数字だけ動作を停止
+    const sleep = waitTime => new Promise( resolve => setTimeout(resolve, waitTime) );
 
     function FadeInLinkClick() {
         const frame = document.getElementById("fadeLayer");
@@ -120,7 +137,7 @@ export default function Top(props) {
                     flippingTime={flipSpeed}
                     onInit={()=> {
                         if(props.pageNumber){
-                            flipMany(Math.trunc((Number(props.pageNumber) + 3 + Number(tenDividedDiaries.length))/2), 180);
+                            flipMany(Math.trunc((Number(props.pageNumber) + 3 + Number(tenDividedDiaries.length))/2), 280);
                         }
                     }}
                 >
@@ -132,14 +149,14 @@ export default function Top(props) {
                                 <h1>一覧を見る</h1>
                             </div>
                         </button>
-                        <a href='/diary/random'>
+                        <button onClick={randomOpen}>
                             <div className="menu">
                                 <h1>日記を開く</h1>
                             </div>
-                        </a>
+                        </button>
                         <button onClick={async() => {
                             flip(13);
-                            await sleep(2000);
+                            await sleep(1500);
                             Inertia.get('/diary/create')
                         }}>
                             <div className="menu">
