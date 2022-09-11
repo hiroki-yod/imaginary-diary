@@ -5,7 +5,7 @@ import Book2 from './css//image/IMG_4376.jpg';
 import Poster from './css//image/poster.png';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
-import Create from './CreateForm';
+import CreateForm from './CreateForm';
 import { Inertia } from '@inertiajs/inertia';
 
 
@@ -13,15 +13,20 @@ import { Inertia } from '@inertiajs/inertia';
 export default function Top(props) {
     //画面がロードされた時に行う処理
     useEffect(() => {
-        arryDivide(dummyArr, 10);
+        arryDivide(dummyArr, 10); //tenDividedDiariesというstateに10個ずつ日記データを入れていく
+
+        //Pusherの処理。新しく投稿投稿されたら反応
         Echo.channel('chat').listen('DiaryWrited', e => {
+            //投稿されたページまでめくっていく
             flipMany(tenDividedDiaries.length + props.diaries.length + 3);
         });
 
+        //画面幅取得用関数
         const onResize = () => {
             setWindowDimensions(getWindowDimensions());
         }
 
+        //画面幅が変わったらセットし直す
         window.addEventListener('resize', onResize);
         return () => window.removeEventListener('resize', onResize);
     }, []);
@@ -46,7 +51,7 @@ export default function Top(props) {
     `;
 
     //多分日記のやつ
-    const BookStyle = styled.h1`
+    const BookStyle = styled.div`
         margin: 3vh 17vw 0vh 17vw;
     `;
 
@@ -184,10 +189,10 @@ export default function Top(props) {
                     ))}
                     <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
                     <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
-                    <Create/>
-                    <Create/>
-                    <Create/>
-                    <Create/>
+                    <CreateForm/>
+                    <CreateForm/>
+                    <CreateForm/>
+                    <CreateForm/>
                 </HTMLFlipBook>
             </BookStyle>
             {/* <button onClick={()=> {flip(2)}}>目次</button> */}
