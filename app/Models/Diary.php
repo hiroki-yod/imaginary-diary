@@ -24,7 +24,7 @@ class Diary extends Model
     // 未来->過去
     public function getByDate()
     {
-        return $this->orderBy("year","ASC")->orderBy("date","ASC")->get();
+        return $this->orderBy("year","ASC")->orderBy("month","ASC")->orderBy("day","ASC")->get();
     }
 
     public function user()
@@ -85,7 +85,7 @@ class Diary extends Model
 
         // 日付
         //$word = $this->year . "年 " . $this->date->format('m月 d日');
-        $word = $this->year . "年 " . $this->month . "月 " . $this->date . "日";
+        $word = $this->year . "年 " . $this->month . "月 " . $this->day . "日";
         $x = 300;
         $y = 137;
 
