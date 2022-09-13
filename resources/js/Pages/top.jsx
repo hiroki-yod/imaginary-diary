@@ -54,7 +54,7 @@ export default function Top(props) {
 
     const SpImgStyle = styled.img`
         width: ${windowDimensions.width * 0.9}px;
-        height:${windowDimensions.width * 0.9 * 1.2}px;
+        height:${windowDimensions.width * 0.9 * 1.5}px;
     `;
 
     //日記のやつ
@@ -215,7 +215,7 @@ export default function Top(props) {
             <SpBookStyle>
                 <HTMLFlipBook
                     width={windowDimensions.width * 0.9}
-                    height={windowDimensions.width * 0.9 * 1.2}
+                    height={windowDimensions.width * 0.9 * 1.5}
                     showCover={true}
                     drawShadow={true}
                     ref={book}
@@ -264,7 +264,7 @@ export default function Top(props) {
 
                     {props.diaries.map((diary, index)=> (
                         <WhiteStyle className="demoPage">
-                            <ImgStyle src={diary.image_path}/>
+                            <SpImgStyle src={diary.image_path}/>
                         </WhiteStyle>
                     ))}
                     <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>

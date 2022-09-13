@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('image_path', 100)->nullable();
             $table->string('audio', 100)->nullable();
             $table->integer('year');    //マイナスの符号によって紀元前を表現
-            $table->date('date');       //紀元前１万年まで扱えないために'year'を分離
+            $table->integer('month');       //紀元前１万年まで扱えないために'year'を分離
+            $table->integer('date');    //dateをmonthと分離
             $table->timestamps();
             $table->softDeletes();
         });
