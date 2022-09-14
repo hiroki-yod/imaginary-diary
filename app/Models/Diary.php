@@ -17,7 +17,7 @@ class Diary extends Model
     ];
 
     protected $fillable = [
-        'user_id', 'title', 'body', 'image', 'audio', 'year', 'date',
+        'user_id', 'title', 'body', 'image', 'audio', 'year', 'month', 'day',
     ];
 
     // 日付順ソート

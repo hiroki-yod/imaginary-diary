@@ -171,8 +171,8 @@ export default function Top(props) {
                             </div>
                         </button>
                         <button onClick={async() => {
-                            flip(13);
-                            await sleep(1500);
+                            flip(3);
+                            await sleep(1000);
                             Inertia.get('/diary/create')
                         }}>
                             <div className="menu">
@@ -240,8 +240,8 @@ export default function Top(props) {
                             </div>
                         </button>
                         <button onClick={async() => {
-                            flip(13);
-                            await sleep(1500);
+                            flip(3);
+                            await sleep(1000);
                             Inertia.get('/diary/create')
                         }}>
                             <div className="menu">
@@ -269,6 +269,7 @@ export default function Top(props) {
                     ))}
                     <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
                     <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
+                    <CreateForm/>
                     <CreateForm/>
                     <CreateForm/>
                     <CreateForm/>

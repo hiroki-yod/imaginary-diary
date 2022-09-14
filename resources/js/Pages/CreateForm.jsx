@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 const WhiteStyle = styled.div`
         background-color: white;
-        width: 500px;
     `;
 
 const DateStyle = styled.input`
@@ -75,7 +74,8 @@ export default React.forwardRef(function CreateForm(props, ref) {
         title: "",
         body: "",
         year:'',
-        date: "",
+        month: "",
+        day: "",
     });
 
     function onSubmit(e) {  //submit関数。
@@ -93,11 +93,11 @@ export default React.forwardRef(function CreateForm(props, ref) {
                     <DateStyle type="text" value={data.year} onChange={(e) => {setData("year", e.target.value);}}/>
                     <PStyle>年</PStyle>
                     {errors.year && (<div className="text-red-600">{errors.year}</div>)}
-                    <DateStyle type="text" value={data.date} onChange={(e) => {setData("date", e.target.value);}}/>
+                    <DateStyle type="text" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
                     <PStyle>月</PStyle>
-                    <DateStyle type="text" value={data.date} onChange={(e) => {setData("date", e.target.value);}}/>
+                    <DateStyle type="text" value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
                     <PStyle>日</PStyle>
-                    {errors.date && (<div className="text-red-600">{errors.date}</div>)}
+                    {errors.month && (<div className="text-red-600">{errors.date}</div>)}
                 </DateWrapper>
                 <TitleWrapper>
                     <TitleStyle
