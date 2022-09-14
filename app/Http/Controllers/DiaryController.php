@@ -46,7 +46,7 @@ class DiaryController extends Controller
         $input += ['user_id' => $request->user()->id];
         $diary->fill($input)->storeImage()->save();
         event(new DiaryWrited($diary));
-        $page = Diary::where('year', '<=', $diary->year)->where('date', '<=', $diary->date)->count();
+        $page = Diary::where('year', '<=', $diary->year)->where('month', '<=', $diary->month)->where('day', '<=', $diary->day)->count();
         return redirect()->route('index', ['page' => $page]);
     }
 

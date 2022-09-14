@@ -17,14 +17,14 @@ class Diary extends Model
     ];
 
     protected $fillable = [
-        'user_id', 'title', 'body', 'image', 'audio', 'year', 'date',
+        'user_id', 'title', 'body', 'image', 'audio', 'year', 'month', 'day',
     ];
 
     // 日付順ソート
     // 未来->過去
     public function getByDate()
     {
-        return $this->orderBy("year","ASC")->orderBy("date","ASC")->get();
+        return $this->orderBy("year","ASC")->orderBy("month","ASC")->orderBy("day","ASC")->get();
     }
 
     public function user()
@@ -91,7 +91,8 @@ class Diary extends Model
         });
 
         // 日付
-        $word = $this->year . "年 " . $this->date->format('m月 d日');
+        //$word = $this->year . "年 " . $this->date->format('m月 d日');
+        $word = $this->year . "年 " . $this->month . "月 " . $this->day . "日";
         $x = 300;
         $y = 137;
 
