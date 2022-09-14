@@ -1,8 +1,10 @@
 import React, { useRef, useState, useEffect } from "react"
 import { Link, Head } from '@inertiajs/inertia-react';
 import './css/main.css';
+import Book1 from './css//image/white-diary.jpg';
 import Book2 from './css//image/IMG_4376.jpg';
 import Poster from './css//image/poster.png';
+import Poster2 from './css//image/diary-top.jpg';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import CreateForm from './CreateForm';
@@ -48,8 +50,8 @@ export default function Top(props) {
 
     //日記の画像用
     const ImgStyle = styled.img`
-        width: ${windowDimensions.width * 0.66 * 0.5}px;
-        height:${windowDimensions.height * 0.94}px;
+        width: ${windowDimensions.width * 0.64 * 0.5}px;
+        height:${windowDimensions.height * 0.90}px;
     `;
 
     const SpImgStyle = styled.img`
@@ -69,6 +71,7 @@ export default function Top(props) {
     //白背景
     const WhiteStyle = styled.div`
         background-color: white;
+        text-align: center;
     `;
 
     const [tenDividedDiaries, setTenDividedDiaries] = useState([]); //日記用データを分割して入れるstate
@@ -131,22 +134,13 @@ export default function Top(props) {
     const pc = (
         <div className='content'>
             <div className="paper">
-                <div id="fadeLayer" className="FadeInFrame"></div>
-                <h2>松本家架空日記とは</h2>
-                <p>現在の私たちが松本家の歴史に参加し続きの物語を紡ぐことができるように『松本家架空日記』を用意しました。
-                    架空の日記を書くことを通じてみなさんは歴史の隠れた1ページあるいはこれから先の1ページに参加することができます。
-                    登場人物はあなたでもあなたではない誰かでも構いません。
-                    ある縄文時代から遥か未来までのどこか1日を選んで松本家で起こるかもしれないある日の物語を書いてください。
-                    このWebページから架空日記を投稿することができ、日記はリアルタイムで展示会場に反映されます。</p>
-                <p>
-                    PCの方は表紙にカーソルを合わせると、タブレットの方は表紙をタップすると、『松本家架空日記』が開きます。
-                </p>
+                <img src={Poster2} alt="" />
             </div>
             <BookStyle>
                 <HTMLFlipBook
                     usePortrait={false}
-                    width={windowDimensions.width * 0.66 * 0.5}
-                    height={windowDimensions.height * 0.94}
+                    width={windowDimensions.width * 0.64 * 0.5}
+                    height={windowDimensions.height * 0.90}
                     showCover={true}
                     drawShadow={true}
                     ref={book}
@@ -158,38 +152,55 @@ export default function Top(props) {
                     }}
                 >
                     <div className="demoPage"><ImgStyle src={Poster}/></div>
-                    <div className="demoPage"><ImgStyle src={Poster}/></div>
+                    <div className="demoPage"><ImgStyle src={Poster2}/></div>
                     <WhiteStyle>
-                        <button onClick={() => flip(2)}>
-                            <div className="menu">
-                                <h1>一覧を見る</h1>
+                        <div class="menu-1">
+                            <div>
+                                <button  onClick={() => flip(2)}>
+                                    <h1 class="menu">一覧を見る</h1>
+                                </button>
+                                <p>
+                                    『松本家架空日記』の目次までページがめくられます
+                                </p>
                             </div>
-                        </button>
-                        <button onClick={randomOpen}>
-                            <div className="menu">
-                                <h1>日記を開く</h1>
+                        </div>
+
+                        <div class="menu-2">
+                            <div>
+                                <button  onClick={randomOpen}>
+                                    <h1 class="menu">日記を開く</h1>
+                                </button>
+                                <p>
+                                    投稿された架空日記がランダムに開かれます
+                                </p>
                             </div>
-                        </button>
-                        <button onClick={async() => {
-                            flip(3);
-                            await sleep(1000);
-                            Inertia.get('/diary/create')
-                        }}>
-                            <div className="menu">
-                                <h1>日記を書く</h1>
+                        </div>
+                        
+                        <div class="menu-3">
+                            <div>
+                                <button onClick={async() => {
+                                    flip(3);
+                                    await sleep(1000);
+                                    Inertia.get('/diary/create')
+                                }}>
+                                    <h1  class="menu">日記を書く</h1>
+                                </button>
+                                <p>
+                                    ユーザー登録の後に日記を投稿することができます
+                                </p>
                             </div>
-                        </button>
-                        <button type="button" onClick={FadeInLinkClick}>暗転テスト</button>
-                        <Link href={ route('register')}>ユーザー登録</Link>
+                        </div>
                     </WhiteStyle>
                     {tenDividedDiaries.map((diaries, index) => (
                         <WhiteStyle>
+                            <div class="index">
+                                <h1>目次</h1>
                             {diaries.map((diary, i) => (
-                                <div>
+                                <div class="index-title">
                                     <button onClick={() => {flip(index*10 + 3 + tenDividedDiaries.length + i)}}>{diary.title}</button>
-                                    <button>{index*10 + 3 + tenDividedDiaries.length + i}</button>
                                 </div>
                             ))}
+                            </div>
                         </WhiteStyle>
                     ))}
 
@@ -198,12 +209,8 @@ export default function Top(props) {
                             <ImgStyle src={diary.image_path}/>
                         </WhiteStyle>
                     ))}
-                    <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
-                    <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
-                    <CreateForm/>
-                    <CreateForm/>
-                    <CreateForm/>
-                    <CreateForm/>
+
+                    <div className="demoPage"><ImgStyle src={Book1}></ImgStyle></div>
                 </HTMLFlipBook>
             </BookStyle>
             {/* <button onClick={()=> {flip(2)}}>目次</button> */}
@@ -227,29 +234,8 @@ export default function Top(props) {
                     }}
                 >
                     <div className="demoPage"><SpImgStyle src={Poster}/></div>
-                    <div className="demoPage"><SpImgStyle src={Poster}/></div>
+                    <div className="demoPage"><SpImgStyle src={Top}/></div>
                     <WhiteStyle>
-                        <button onClick={() => flip(2)}>
-                            <div className="menu">
-                                <h1>一覧を見る</h1>
-                            </div>
-                        </button>
-                        <button onClick={randomOpen}>
-                            <div className="menu">
-                                <h1>日記を開く</h1>
-                            </div>
-                        </button>
-                        <button onClick={async() => {
-                            flip(3);
-                            await sleep(1000);
-                            Inertia.get('/diary/create')
-                        }}>
-                            <div className="menu">
-                                <h1>日記を書く</h1>
-                            </div>
-                        </button>
-                        <button type="button" onClick={FadeInLinkClick}>暗転テスト</button>
-                        <Link href={ route('register')}>ユーザー登録</Link>
                     </WhiteStyle>
                     {tenDividedDiaries.map((diaries, index) => (
                         <WhiteStyle>

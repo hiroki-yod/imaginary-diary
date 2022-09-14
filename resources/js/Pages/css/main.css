@@ -43,10 +43,10 @@ img{
 
 .paper{
     background-color: #fff;
-    width: 25vw;
-    height: 70vh;
+    width: 28vw;
+    height: 72vh;
     margin-top: 10vh;
-    margin-left: 20vw;
+    margin-left: 18vw;
     position: absolute;
 }
 .paper h2{
@@ -56,18 +56,38 @@ img{
     margin: 15px 20px 0;
 
 }
-
+.menu-1{
+    margin-top: 20%;
+    height: 25%;
+}
+.menu-2{
+    height: 25%;
+}
+.menu-3{
+    height: 25%;
+}
 .menu {
-    background-color: #000;
-    margin: 15px 20%;
+    color: #062b37;
+    font-size: 2rem;
+    font-weight: bold;
 }
-.menu h1 {
-    font-size: 4vh;
-    color: #FFF;
-    font-family: serif;
+.menu:hover {
+    color: #00796B;
 }
-.menu h1:hover {
-    color: #808000;
+.index{
+    margin: 15% 0;
+}
+.index h1{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.index-title{
+    color: #062b37;
+    font-weight: bolder;
+    margin-top: 1rem;
+}
+.index-title:hover {
+    color: #00796B;
 }
 
 a {

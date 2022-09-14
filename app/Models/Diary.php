@@ -37,12 +37,19 @@ class Diary extends Model
         $result = [];
         $oneline = "";
         $cnt = 0;
+        $new_line = [PHP_EOL, "\n", "\r"];
+        $prev_char = "";
         foreach($this->mb_wordwrap($this->body, 1) as $char) {
-            if ($char == PHP_EOL || ($cnt > $width && !($char == "、" || $char == "。"))) {
+            if (in_array($char, $new_line) || ($cnt >= $width && !($char == "、" || $char == "。"))) {
+                if ($char == "\n" && $prev_char == "\r") {
+                    $prev_char = $char;
+                    continue;
+                }
                 $result[] = $oneline;
                 $oneline = "";
                 $cnt = 0;
-                if ($char == PHP_EOL) {
+                $prev_char = $char;
+                if (in_array($char, $new_line)) {
                     continue;
                 }
             }
@@ -107,7 +114,7 @@ class Diary extends Model
         });
 
         // 本文
-        $body = $this->getBodyArray(14);
+        $body = $this->getBodyArray(15);
         $x = 90;
         for($i = 0; $i < count($body); $i++) {
             $y = 280 + $i * 33;
