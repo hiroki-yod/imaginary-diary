@@ -90,6 +90,12 @@ img{
     color: #00796B;
 }
 
+.create-wrapper{
+    background-image: url(./image/white-diary.jpg);
+    background-size: cover;
+    height: 100%;
+}
+
 a {
     text-decoration: none;
 }
