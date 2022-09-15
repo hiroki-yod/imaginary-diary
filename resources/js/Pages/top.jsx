@@ -190,6 +190,18 @@ export default function Top(props) {
                                 </p>
                             </div>
                         </div>
+                        <div class="menu-4">
+                            <div>
+                                <button onClick={async() => {
+                                    Inertia.get('/register')
+                                }}>
+                                    <h1  class="menu">ユーザー登録</h1>
+                                </button>
+                                <p>
+                                    日記を投稿するための名前を記入することができます
+                                </p>
+                            </div>
+                        </div>
                     </WhiteStyle>
                     {tenDividedDiaries.map((diaries, index) => (
                         <WhiteStyle>
@@ -234,17 +246,67 @@ export default function Top(props) {
                     }}
                 >
                     <div className="demoPage"><SpImgStyle src={Poster}/></div>
-                    <div className="demoPage"><SpImgStyle src={Top}/></div>
+                    <div className="demoPage"><SpImgStyle src={Poster2}/></div>
                     <WhiteStyle>
+                        <div class="menu-1">
+                            <div>
+                                <button  onClick={() => flip(2)}>
+                                    <h1 class="sp-menu">一覧を見る</h1>
+                                </button>
+                                <p class="sp">
+                                    『松本家架空日記』の目次までページがめくられます
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="menu-2">
+                            <div>
+                                <button  onClick={randomOpen}>
+                                    <h1 class="sp-menu">日記を開く</h1>
+                                </button>
+                                <p class="sp">
+                                    投稿された架空日記がランダムに開かれます
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="menu-3">
+                            <div>
+                                <button onClick={async() => {
+                                    flip(3);
+                                    await sleep(1000);
+                                    Inertia.get('/diary/create')
+                                }}>
+                                    <h1  class="sp-menu">日記を書く</h1>
+                                </button>
+                                <p class="sp">
+                                    ユーザー登録の後に日記を投稿することができます
+                                </p>
+                            </div>
+                        </div>
+                        <div class="menu-4">
+                            <div>
+                                <button onClick={async() => {
+                                    Inertia.get('/register')
+                                }}>
+                                    <h1  class="sp-menu">ユーザー登録</h1>
+                                </button>
+                                <p class="sp">
+                                    日記を投稿するための名前を記入することができます
+                                </p>
+                            </div>
+                        </div>
                     </WhiteStyle>
                     {tenDividedDiaries.map((diaries, index) => (
                         <WhiteStyle>
+                            <div class="index">
+                                <h1>目次</h1>
                             {diaries.map((diary, i) => (
-                                <div>
+                                <div class="sp-index-title">
                                     <button onClick={() => {flip(index*10 + 3 + tenDividedDiaries.length + i)}}>{diary.title}</button>
-                                    <button>{index*10 + 3 + tenDividedDiaries.length + i}</button>
                                 </div>
                             ))}
+                            </div>
                         </WhiteStyle>
                     ))}
 
@@ -253,13 +315,8 @@ export default function Top(props) {
                             <SpImgStyle src={diary.image_path}/>
                         </WhiteStyle>
                     ))}
-                    <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
-                    <div className="demoPage"><ImgStyle src={Book2}></ImgStyle></div>
-                    <CreateForm/>
-                    <CreateForm/>
-                    <CreateForm/>
-                    <CreateForm/>
-                    <CreateForm/>
+
+                    <div className="demoPage"><SpImgStyle src={Book1}></SpImgStyle></div>
                 </HTMLFlipBook>
             </SpBookStyle>
             {/* <button onClick={()=> {flip(2)}}>目次</button> */}
