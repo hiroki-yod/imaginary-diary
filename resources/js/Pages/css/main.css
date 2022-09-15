@@ -93,16 +93,16 @@ img{
     color: #00796B;
 }
 
-.create-wrapper{
-    background-image: url(./image/white-diary.jpg);
-    background-size: cover;
-    height: 100%;
-}
-
 a {
     text-decoration: none;
 }
 
+
+.form-title{
+    font-size: 1.25rem;
+    text-align: center;
+    margin-top: 10%;
+}
 
 #diary {
     background-image: url(./image/gray-bg.jpg);
