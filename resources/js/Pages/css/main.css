@@ -77,6 +77,17 @@ img{
 .menu:hover {
     color: #00796B;
 }
+.sp-menu{
+    color: #062b37;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.sp-menu:hover {
+    color: #00796B;
+}
+.sp{
+    font-size: 0.75rem;
+}
 .index{
     margin: 15% 0;
 }
@@ -90,6 +101,15 @@ img{
     margin-top: 1rem;
 }
 .index-title:hover {
+    color: #00796B;
+}
+.sp-index-title{
+    color: #062b37;
+    font-weight: bolder;
+    font-size: 0.75rem;
+    margin-top: 0.75rem;
+}
+.sp-index-title:hover {
     color: #00796B;
 }
 
