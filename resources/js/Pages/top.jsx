@@ -190,6 +190,18 @@ export default function Top(props) {
                                 </p>
                             </div>
                         </div>
+                        <div class="menu-4">
+                            <div>
+                                <button onClick={async() => {
+                                    Inertia.get('/register')
+                                }}>
+                                    <h1  class="menu">ユーザー登録</h1>
+                                </button>
+                                <p>
+                                    日記を投稿するための名前を記入することができます
+                                </p>
+                            </div>
+                        </div>
                     </WhiteStyle>
                     {tenDividedDiaries.map((diaries, index) => (
                         <WhiteStyle>
