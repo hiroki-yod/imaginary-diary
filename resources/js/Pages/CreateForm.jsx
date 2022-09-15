@@ -85,22 +85,19 @@ export default React.forwardRef(function CreateForm(props, ref) {
 
     return (
         <WhiteStyle ref={ref}>
-            <p>松本家架空日記</p>
+            <div class="create-wrapper">
             <form
                 onSubmit={onSubmit}
             >
                 <DateWrapper>
                     <DateStyle type="text" value={data.year} onChange={(e) => {setData("year", e.target.value);}}/>
-                    <PStyle>年</PStyle>
                     {errors.year && (<div className="text-red-600">{errors.year}</div>)}
                     <DateStyle type="text" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
-                    <PStyle>月</PStyle>
                     <DateStyle type="text" value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
-                    <PStyle>日</PStyle>
                     {errors.month && (<div className="text-red-600">{errors.date}</div>)}
                 </DateWrapper>
                 <TitleWrapper>
-                    <TitleStyle
+                    {/* <TitleStyle
                         id="title"
                         type="text"
                         value={data.title}
@@ -114,10 +111,10 @@ export default React.forwardRef(function CreateForm(props, ref) {
                         <div className="text-red-600">
                             {errors.title}
                         </div>
-                    )}
+                    )} */}
                 </TitleWrapper>
                 <TextWrapper>
-                    <TextStyle
+                    {/* <TextStyle
                         id="description"
                         value={data.body}
                         onChange={(e) => {
@@ -130,10 +127,10 @@ export default React.forwardRef(function CreateForm(props, ref) {
                         <div className="text-red-600">
                             {errors.body}
                         </div>
-                    )}
+                    )} */}
                 </TextWrapper>
 
-                <div className="flex justify-end pr-2">
+                {/* <div className="flex justify-end pr-2">
                     <button
                         onClick={onSubmit}
                         disabled={processing}
@@ -141,8 +138,9 @@ export default React.forwardRef(function CreateForm(props, ref) {
                     >
                         投稿
                     </button>
-                </div>
+                </div> */}
             </form>
+            </div>
         </WhiteStyle>
     );
 });
