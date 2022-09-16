@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\DiaryRequest;
+use App\Http\Requests\ImageRequest;
 use App\Models\Diary;
 use App\Events\DiaryWrited;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class DiaryController extends Controller
 {
@@ -54,5 +56,20 @@ class DiaryController extends Controller
     {
         $diaries = Diary::all()->pluck('id')->toArray();
         return redirect("/diary/".$diaries[(array_rand($diaries))]);
+    }
+
+    // 写真の投稿
+    public function upload()
+    {
+        return view('upload');
+    }
+    public function store_image(ImageRequest $request, Diary $diary)
+    {
+        $input_diary = $request['diary'];
+        $diary->fill($input_diary);
+        $diary['image_path'] = $request->file('image')->store('images/diaries', 'public');
+        $diary['user_id'] = Auth::id();
+        $diary->save();
+        return redirect('/');
     }
 }
