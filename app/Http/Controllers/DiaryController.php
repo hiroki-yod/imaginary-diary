@@ -46,9 +46,18 @@ class DiaryController extends Controller
 
     public function store(DiaryRequest $request, Diary $diary)
     {
-        $input = $request->all();
-        $input += ['user_id' => $request->user()->id];
-        $diary->fill($input)->storeImage()->save();
+        $input_diary = $request->all();
+        $input_diary['user_id'] = Auth::id();
+        $file = $request->file('diary');
+
+        if (isset($file)) {
+            $diary->fill($input_diary);
+            $diary['image_path'] = $file->store('images/diaries', 'public');
+            $diary->save();
+        } else {
+            $diary->fill($input_diary)->storeImage()->save();
+        }
+
         event(new DiaryWrited($diary));
         $page = Diary::where('year', '<=', $diary->year)->where('month', '<=', $diary->month)->where('day', '<=', $diary->day)->count();
         Functions::toggleSwitch();
