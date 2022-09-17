@@ -23,7 +23,7 @@
                     @endif
                     <p class='diary-writer'>{{ $diary->user->name }}</p>
                 </div>
-                <img src="{{ Storage::url($diary->image_path) }}" width="25%">
+                <img src= "{{ '/storage/' . $diary->image_path }}" width="25%">
                 <form action='/admin/{{ $diary->id }}' method="post" style="display:inline">
                     @csrf
                     @method('DELETE')
