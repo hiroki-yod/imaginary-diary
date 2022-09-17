@@ -147,7 +147,9 @@ export default function Top(props) {
                     flippingTime={flipSpeed}
                     onInit={()=> {
                         if(props.pageNumber){
-                            flipMany(Math.trunc((Number(props.pageNumber) + 3 + Number(tenDividedDiaries.length))/2), 280);
+                            const diaryNum = Number(props.pageNumber); //目的の日記までの日記の数
+                            const contentsNum = Number(tenDividedDiaries.length);  //目次のページ数
+                            flipMany(Math.trunc((diaryNum + contentsNum)/2 + 2), 280);
                         }
                     }}
                 >
@@ -175,7 +177,7 @@ export default function Top(props) {
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="menu-3">
                             <div>
                                 <button onClick={async() => {
@@ -241,7 +243,9 @@ export default function Top(props) {
                     flippingTime={flipSpeed}
                     onInit={()=> {
                         if(props.pageNumber){
-                            flipMany(Math.trunc((Number(props.pageNumber) + 3 + Number(tenDividedDiaries.length))/2), 280);
+                            const diaryNum = Number(props.pageNumber); //何番目の日記かを表す
+                            const contentsNum = Number(tenDivideDiaries.length);  //目次のページ数
+                            flipMany(Math.trunc((diaryNum + 3 + contentsNum)/2), 280);
                         }
                     }}
                 >
@@ -269,7 +273,7 @@ export default function Top(props) {
                                 </p>
                             </div>
                         </div>
-                        
+
                         <div class="menu-3">
                             <div>
                                 <button onClick={async() => {

@@ -36,7 +36,8 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function(){        //管理者
     Route::delete('/admin/{Diary}', [AdminController::class, 'delete']);
 });
 
-Route::get('/', [DiaryController::class, 'top'])->name('index');                   //一覧表示
+Route::get('/', [DiaryController::class, 'top'])->name('index');         //一覧表示
+Route::get('/display', [DiaryController::class, 'top'])->name('display');         //会場表示用
 Route::get('/diaries', [DiaryController::class, 'index']);          //一覧表示
 Route::get('/diary/create', [DiaryController::class, 'create'])     //日記投稿
     ->middleware(['auth', 'verified'])->name('dashboard');
