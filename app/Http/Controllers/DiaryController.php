@@ -73,7 +73,7 @@ class DiaryController extends Controller
     // 写真の投稿
     public function upload()
     {
-        return view('upload');
+        return Inertia::render('upload');
     }
     public function store_image(ImageRequest $request, Diary $diary)
     {
