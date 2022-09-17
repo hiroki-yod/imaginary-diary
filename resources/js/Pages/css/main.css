@@ -43,10 +43,10 @@ img{
 
 .paper{
     background-color: #fff;
-    width: 25vw;
-    height: 70vh;
+    width: 28vw;
+    height: 72vh;
     margin-top: 10vh;
-    margin-left: 20vw;
+    margin-left: 18vw;
     position: absolute;
 }
 .paper h2{
@@ -56,24 +56,73 @@ img{
     margin: 15px 20px 0;
 
 }
-
+.menu-1{
+    margin-top: 15%;
+    height: 20%;
+}
+.menu-2{
+    height: 20%;
+}
+.menu-3{
+    height: 20%;
+}
+.menu-4{
+    height: 20%;
+}
 .menu {
-    background-color: #000;
-    margin: 15px 20%;
+    color: #062b37;
+    font-size: 2rem;
+    font-weight: bold;
 }
-.menu h1 {
-    font-size: 4vh;
-    color: #FFF;
-    font-family: serif;
+.menu:hover {
+    color: #00796B;
 }
-.menu h1:hover {
-    color: #808000;
+.sp-menu{
+    color: #062b37;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.sp-menu:hover {
+    color: #00796B;
+}
+.sp{
+    font-size: 0.75rem;
+}
+.index{
+    margin: 15% 0;
+}
+.index h1{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.index-title{
+    color: #062b37;
+    font-weight: bolder;
+    margin-top: 1rem;
+}
+.index-title:hover {
+    color: #00796B;
+}
+.sp-index-title{
+    color: #062b37;
+    font-weight: bolder;
+    font-size: 0.75rem;
+    margin-top: 0.75rem;
+}
+.sp-index-title:hover {
+    color: #00796B;
 }
 
 a {
     text-decoration: none;
 }
 
+
+.form-title{
+    font-size: 1.25rem;
+    text-align: center;
+    margin-top: 10%;
+}
 
 #diary {
     background-image: url(./image/gray-bg.jpg);

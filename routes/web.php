@@ -39,9 +39,13 @@ Route::middleware(['auth', 'can:isAdmin'])->group(function(){        //管理者
 Route::get('/', [DiaryController::class, 'top'])->name('index');                   //一覧表示
 Route::get('/diaries', [DiaryController::class, 'index']);          //一覧表示
 Route::get('/diary/create', [DiaryController::class, 'create'])     //日記投稿
-->middleware(['auth', 'verified'])->name('dashboard');
+    ->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('/diary', [DiaryController::class, 'store']);           //日記保存
 Route::get('/diary/random', [DiaryController::class, 'random']);     //ランダムに詳細表示
 Route::get('/diary/{diary}', [DiaryController::class, 'show']);     //詳細表示
+
+// 写真投稿
+Route::get('/upload', [DiaryController::class, 'upload'])->name('dashboard');
+Route::post('/upload', [DiaryController::class, 'store_image']);
 
 require __DIR__.'/auth.php';

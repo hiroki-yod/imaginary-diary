@@ -36,7 +36,7 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel forInput="name" value="Name" />
+                    <InputLabel forInput="name" value="ペンネーム（日記に表示されます）" />
 
                     <TextInput
                         type="text"
@@ -53,7 +53,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="email" value="Email" />
+                    <InputLabel forInput="email" value="メールアドレス" />
 
                     <TextInput
                         type="email"
@@ -69,7 +69,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password" value="Password" />
+                    <InputLabel forInput="password" value="パスワード" />
 
                     <TextInput
                         type="password"
@@ -85,7 +85,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel forInput="password_confirmation" value="Confirm Password" />
+                    <InputLabel forInput="password_confirmation" value="パスワード（確認）" />
 
                     <TextInput
                         type="password"
@@ -101,11 +101,11 @@ export default function Register() {
 
                 <div className="flex items-center justify-end mt-4">
                     <Link href={route('login')} className="underline text-sm text-gray-600 hover:text-gray-900">
-                        Already registered?
+                        既に登録されている方はこちら
                     </Link>
 
                     <PrimaryButton className="ml-4" processing={processing}>
-                        Register
+                        ユーザー登録
                     </PrimaryButton>
                 </div>
             </form>

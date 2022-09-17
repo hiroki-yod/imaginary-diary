@@ -17,14 +17,14 @@ class Diary extends Model
     ];
 
     protected $fillable = [
-        'user_id', 'title', 'body', 'image', 'audio', 'year', 'date',
+        'user_id', 'title', 'body', 'image', 'audio', 'year', 'month', 'day',
     ];
 
     // 日付順ソート
     // 未来->過去
     public function getByDate()
     {
-        return $this->orderBy("year","ASC")->orderBy("date","ASC")->get();
+        return $this->orderBy("year","ASC")->orderBy("month","ASC")->orderBy("day","ASC")->get();
     }
 
     public function user()
@@ -37,12 +37,19 @@ class Diary extends Model
         $result = [];
         $oneline = "";
         $cnt = 0;
+        $new_line = [PHP_EOL, "\n", "\r"];
+        $prev_char = "";
         foreach($this->mb_wordwrap($this->body, 1) as $char) {
-            if ($char == PHP_EOL || ($cnt > $width && !($char == "、" || $char == "。"))) {
+            if (in_array($char, $new_line) || ($cnt >= $width && !($char == "、" || $char == "。"))) {
+                if ($char == "\n" && $prev_char == "\r") {
+                    $prev_char = $char;
+                    continue;
+                }
                 $result[] = $oneline;
                 $oneline = "";
                 $cnt = 0;
-                if ($char == PHP_EOL) {
+                $prev_char = $char;
+                if (in_array($char, $new_line)) {
                     continue;
                 }
             }
@@ -84,7 +91,8 @@ class Diary extends Model
         });
 
         // 日付
-        $word = $this->year . "年 " . $this->date->format('m月 d日');
+        //$word = $this->year . "年 " . $this->date->format('m月 d日');
+        $word = $this->year . "年 " . $this->month . "月 " . $this->day . "日";
         $x = 300;
         $y = 137;
 
@@ -106,7 +114,7 @@ class Diary extends Model
         });
 
         // 本文
-        $body = $this->getBodyArray(14);
+        $body = $this->getBodyArray(15);
         $x = 90;
         for($i = 0; $i < count($body); $i++) {
             $y = 280 + $i * 33;
@@ -119,8 +127,10 @@ class Diary extends Model
         }
         // 保存
         $file_name = Uuid::uuid4()->toString();
-        $img->save(public_path('/images/diaries/' . $file_name . '.jpg'));
-        $this->image_path = '/images/diaries/' . $file_name . '.jpg';
+        $img->save(storage_path('/app/public/images/diaries/' . $file_name . '.jpg'));
+        $this->image_path = 'images/diaries/' . $file_name . '.jpg';
+        //$img->save(public_path('/images/diaries/' . $file_name . '.jpg'));
+        //$this->image_path = '/images/diaries/' . $file_name . '.jpg';
         return $this;
     }
 }

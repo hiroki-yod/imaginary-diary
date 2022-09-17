@@ -5,15 +5,77 @@ import styled from 'styled-components';
 
 const WhiteStyle = styled.div`
         background-color: white;
-        width: 500px;
     `;
+
+const DateStyle = styled.input`
+        border-bottom:none;
+        border-right:none;
+        border-left:none;
+        border-top:none;
+        font-size: 0.75rem;
+        width: 100%;
+    `;
+
+const DateWrapper = styled.div`
+        display: flex;
+        font-size: 0.75rem;
+        border-bottom:1px solid #cccccc;
+        border-right:none;
+        border-left:none;
+        border-top:none;
+        width:50%;
+        margin-left:auto;
+        margin-right:10%;
+    `;
+
+const TitleStyle = styled.input`
+    border-bottom:1px solid #cccccc;
+    border-right:none;
+    border-left:none;
+    border-top:none;
+    `;
+
+const TitleWrapper = styled.div`
+        margin-right: auto;
+        margin-left: auto;
+        width:60%;
+    `
+
+const PStyle = styled.p`
+        margin-top: auto;
+    `
+
+const TextStyle = styled.textarea`
+        line-height: 30px;
+        background: linear-gradient(to bottom, #cccccc 1px, white 1px);
+        background-size: 100% 30px;
+        background-origin: content-box;
+        background-attachment: local;
+        /* 枠線を消す */
+        border: none;
+        /* 右下の//(サイズ変更機能)を消す */
+        resize: none;
+        /* フォーカスした際の青い枠線を消す */
+        outline: none;
+        width: 100%;
+        height: 100%;
+    `
+
+const TextWrapper = styled.div`
+        width:85%;
+        margin-top: 5vh;
+        height:55vh;
+        margin-left:auto;
+        margin-right:auto;
+    `
 
 export default React.forwardRef(function CreateForm(props, ref) {
     const { data, setData, post, errors, processing } = useForm({
         title: "",
         body: "",
         year:'',
-        date: "",
+        month: "",
+        day: "",
     });
 
     function onSubmit(e) {  //submit関数。
@@ -23,24 +85,26 @@ export default React.forwardRef(function CreateForm(props, ref) {
 
     return (
         <WhiteStyle ref={ref}>
-            <p>松本家架空日記</p>
+            <p class="form-title">松本家架空日記</p>
             <form
                 onSubmit={onSubmit}
-                className="pt-6 pb-8 mb-4 flex flex-col gap-4"
             >
-                <div>
-                    <label
-                        htmlFor="title"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        タイトル
-                    </label>
-                    <input
+                <DateWrapper>
+                    <DateStyle type="text" value={data.year} onChange={(e) => {setData("year", e.target.value);}}/>
+                    <PStyle>年</PStyle>
+                    {errors.year && (<div className="text-red-600">{errors.year}</div>)}
+                    <DateStyle type="text" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
+                    <PStyle>月</PStyle>
+                    <DateStyle type="text" value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
+                    <PStyle>日</PStyle>
+                    {errors.month && (<div className="text-red-600">{errors.date}</div>)}
+                </DateWrapper>
+                <TitleWrapper>
+                    <TitleStyle
                         id="title"
                         type="text"
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         value={data.title}
-                        placeholder="例：イナズマロックフェス"
+                        placeholder="タイトル"
                         maxLength="15"
                         onChange={(e) =>
                             setData("title", e.target.value)
@@ -51,38 +115,23 @@ export default React.forwardRef(function CreateForm(props, ref) {
                             {errors.title}
                         </div>
                     )}
-                </div>
-                <div>
-                    <input type="text" className="" value={data.year} onChange={(e) => {setData("year", e.target.value);}}/>
-                    {errors.year && (<div className="text-red-600">{errors.year}</div>)}
-                </div>
-                <div>
-                    <input type="date" className="" value={data.date} onChange={(e) => {setData("date", e.target.value);}}/>
-                    {errors.date && (<div className="text-red-600">{errors.date}</div>)}
-                </div>
-                <div>
-                    <label
-                        htmlFor="description"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                    >
-                        イベントについて
-                    </label>
-                    <textarea
+                </TitleWrapper>
+                <TextWrapper>
+                    <TextStyle
                         id="description"
-                        className='note'
                         value={data.body}
                         onChange={(e) => {
                             setData("body", e.target.value);
                         }}
                     >
 
-                    </textarea>
+                    </TextStyle>
                     {errors.body && (
                         <div className="text-red-600">
                             {errors.body}
                         </div>
                     )}
-                </div>
+                </TextWrapper>
 
                 <div className="flex justify-end pr-2">
                     <button
