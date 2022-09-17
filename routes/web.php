@@ -45,7 +45,7 @@ Route::get('/diary/random', [DiaryController::class, 'random']);     //ランダ
 Route::get('/diary/{diary}', [DiaryController::class, 'show']);     //詳細表示
 
 // 写真投稿
-Route::get('/upload', [DiaryController::class, 'upload'])->name('dashboard');
+Route::get('/upload', [DiaryController::class, 'upload'])->name('uploads');
 Route::post('/upload', [DiaryController::class, 'store_image']);
 
 require __DIR__.'/auth.php';
