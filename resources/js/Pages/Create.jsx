@@ -2,9 +2,13 @@ import React, { useRef, useState, useEffect } from "react"
 import { Link, Head, useForm } from '@inertiajs/inertia-react';
 import './css/main.css';
 import CreateForm from './CreateForm';
+import SpCreateForm from './SpCreateForm';
 import styled from 'styled-components';
+import { useMedia } from "react-use";
 
 export default function Create(props) {
+    const isWide = useMedia("(min-width: 440px)"); // useMediaの指定の仕方を修正
+
     //画面がロードされた時に行う処理
     useEffect(() => {
         const onResize = () => {
@@ -34,11 +38,28 @@ export default function Create(props) {
         display: flex;
     `;
 
+    const SpWhiteStyle = styled.div`
+        background-color: white;
+        width: ${windowDimensions.width * 0.9}px;
+        height: ${windowDimensions.height * 0.9}px;
+        margin: 5vh auto 0;
+        display: flex;
+    `;
 
-    return (
+    const pc = (
         <WhiteStyle>
             <CreateForm/>
             <CreateForm/>
         </WhiteStyle>
     );
+
+    const smartphone = (
+        <SpWhiteStyle>
+            <SpCreateForm/>
+        </SpWhiteStyle>
+    );
+
+    return <>
+        {isWide? pc:smartphone}
+    </> ;
 };
