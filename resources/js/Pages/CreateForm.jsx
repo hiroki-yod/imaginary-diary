@@ -93,9 +93,10 @@ export default React.forwardRef(function CreateForm(props, ref) {
                     <DateStyle type="number" value={data.year} onChange={(e) => {setData("year", e.target.value);}}/>
                     <PStyle>年</PStyle>
                     {errors.year && (<div className="text-red-600">{errors.year}</div>)}
-                    <DateStyle type="number" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
+                    <DateStyle type="number" min="1" max="12" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
                     <PStyle>月</PStyle>
-                    <DateStyle type="number" value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
+                    <DateStyle type="number" min="1"value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
+                    {/* maxを設定するとレイアウトがずれる */}
                     <PStyle>日</PStyle>
                     {errors.month && (<div className="text-red-600">{errors.date}</div>)}
                 </DateWrapper>

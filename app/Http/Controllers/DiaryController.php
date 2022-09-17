@@ -48,7 +48,7 @@ class DiaryController extends Controller
     {
         $input_diary = $request->all();
         $input_diary['user_id'] = Auth::id();
-        $file = $request->file('diary');
+        $file = $request->file('image');
 
         if (isset($file)) {
             $diary->fill($input_diary);
