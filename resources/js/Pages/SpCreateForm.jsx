@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 const WhiteStyle = styled.div`
         background-color: white;
-        width: 100%;
     `;
 
 const DateStyle = styled.input`
@@ -15,6 +14,7 @@ const DateStyle = styled.input`
         border-top:none;
         font-size: 0.75rem;
         width: 100%;
+        padding: 0;
     `;
 
 const DateWrapper = styled.div`
@@ -30,16 +30,15 @@ const DateWrapper = styled.div`
     `;
 
 const TitleStyle = styled.input`
-    border-bottom:1px solid #cccccc;
-    border-right:none;
-    border-left:none;
-    border-top:none;
+        border-bottom:1px solid #cccccc;
+        border-right:none;
+        border-left:none;
+        border-top:none;
     `;
 
 const TitleWrapper = styled.div`
-        margin-right: auto;
-        margin-left: auto;
-        width:60%;
+        margin: 0 0 0 10%;
+        width:100%;
     `
 
 const PStyle = styled.p`
@@ -64,10 +63,8 @@ const TextStyle = styled.textarea`
 
 const TextWrapper = styled.div`
         width:85%;
-        margin-top: 5vh;
-        height:55vh;
-        margin-left:auto;
-        margin-right:auto;
+        margin: 5vh auto 2vh;
+        height:45vh;
     `
 
 export default React.forwardRef(function CreateForm(props, ref) {
@@ -94,10 +91,9 @@ export default React.forwardRef(function CreateForm(props, ref) {
                     <DateStyle type="number" value={data.year} onChange={(e) => {setData("year", e.target.value);}}/>
                     <PStyle>年</PStyle>
                     {errors.year && (<div className="text-red-600">{errors.year}</div>)}
-                    <DateStyle type="number" min="1" max="12" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
+                    <DateStyle type="number" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
                     <PStyle>月</PStyle>
-                    <DateStyle type="number" min="1"value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
-                    {/* maxを設定するとレイアウトがずれる */}
+                    <DateStyle type="number" value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
                     <PStyle>日</PStyle>
                     {errors.month && (<div className="text-red-600">{errors.date}</div>)}
                 </DateWrapper>
@@ -136,12 +132,6 @@ export default React.forwardRef(function CreateForm(props, ref) {
                 </TextWrapper>
 
                 <div className="flex justify-end pr-2">
-                    <a
-                        href="/upload"
-                        className="flex justify-center items-center postButton w-1/4 h-10 text-xs text-black font-bold rounded border border-black focus:outline-none focus:shadow-outline mr-2"
-                    >
-                        手書き画像へ
-                    </a>
                     <button
                         onClick={onSubmit}
                         disabled={processing}

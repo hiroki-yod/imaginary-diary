@@ -21,7 +21,14 @@
                     @else
                         <h3 class='diary-date'>{{ $diary->year }}年{{$diary->date}}</h3>
                     @endif
+                    <p class='diary-writer'>{{ $diary->user->name }}</p>
                 </div>
+                <img src="{{ Storage::url($diary->image_path) }}" width="25%">
+                <form action='/admin/{{ $diary->id }}' method="post" style="display:inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type='submit'>削除</button>
+                </form>
             @endforeach
         </div>
         <hr>

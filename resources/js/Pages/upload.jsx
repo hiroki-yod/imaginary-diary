@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react"
 import { Link, Head, useForm } from '@inertiajs/inertia-react';
 import './css/main.css';
-import CreateForm from './CreateForm';
+import UploadForm from './UploadForm';
 import SpCreateForm from './SpCreateForm';
 import styled from 'styled-components';
 import { useMedia } from "react-use";
@@ -48,8 +48,8 @@ export default function Create(props) {
 
     const pc = (
         <WhiteStyle>
-            <CreateForm/>
-            <CreateForm/>
+            <UploadForm/>
+            <UploadForm/>
         </WhiteStyle>
     );
 

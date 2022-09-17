@@ -127,8 +127,10 @@ class Diary extends Model
         }
         // 保存
         $file_name = Uuid::uuid4()->toString();
-        $img->save(public_path('/images/diaries/' . $file_name . '.jpg'));
-        $this->image_path = '/images/diaries/' . $file_name . '.jpg';
+        $img->save(storage_path('/app/public/images/diaries/' . $file_name . '.jpg'));
+        $this->image_path = 'images/diaries/' . $file_name . '.jpg';
+        //$img->save(public_path('/images/diaries/' . $file_name . '.jpg'));
+        //$this->image_path = '/images/diaries/' . $file_name . '.jpg';
         return $this;
     }
 }

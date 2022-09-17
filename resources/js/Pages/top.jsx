@@ -220,7 +220,7 @@ export default function Top(props) {
 
                     {props.diaries.map((diary, index)=> (
                         <WhiteStyle className="demoPage">
-                            <ImgStyle src={diary.image_path}/>
+                            <ImgStyle src={"/storage/" + diary.image_path}/>
                         </WhiteStyle>
                     ))}
 
@@ -316,7 +316,7 @@ export default function Top(props) {
 
                     {props.diaries.map((diary, index)=> (
                         <WhiteStyle className="demoPage">
-                            <SpImgStyle src={diary.image_path}/>
+                            <SpImgStyle src={"/storage/" + diary.image_path}/>
                         </WhiteStyle>
                     ))}
 

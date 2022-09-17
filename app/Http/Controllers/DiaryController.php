@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\DiaryRequest;
+use App\Http\Requests\ImageRequest;
 use App\Models\Diary;
 use App\Events\DiaryWrited;
 use Inertia\Inertia;
+
+use Illuminate\Support\Facades\Auth;
+use Functions;
 
 class DiaryController extends Controller
 {
@@ -42,13 +46,23 @@ class DiaryController extends Controller
 
     public function store(DiaryRequest $request, Diary $diary)
     {
-        $input = $request->all();
-        $input += ['user_id' => $request->user()->id];
-        $diary->fill($input)->storeImage()->save();
+        $input_diary = $request->all();
+        $input_diary['user_id'] = Auth::id();
+        $file = $request->file('image');
+
+        if (isset($file)) {
+            $diary->fill($input_diary);
+            $diary['image_path'] = $file->store('images/diaries', 'public');
+            $diary->save();
+        } else {
+            $diary->fill($input_diary)->storeImage()->save();
+        }
+
         event(new DiaryWrited($diary));
         $page = Diary::where('year', '<', $diary->year)->count();
         $page += Diary::where('year', $diary->year)->where('month', '<', $diary->month)->count();
         $page += Diary::where('year', $diary->year)->where('month', $diary->month)->where('day', '<', $diary->day)->count();
+        Functions::toggleSwitch();
         return redirect()->route('index', ['page' => $page]);
     }
 
@@ -56,5 +70,20 @@ class DiaryController extends Controller
     {
         $diaries = Diary::all()->pluck('id')->toArray();
         return redirect("/diary/".$diaries[(array_rand($diaries))]);
+    }
+
+    // 写真の投稿
+    public function upload()
+    {
+        return Inertia::render('upload');
+    }
+    public function store_image(ImageRequest $request, Diary $diary)
+    {
+        $input_diary = $request['diary'];
+        $diary->fill($input_diary);
+        $diary['image_path'] = $request->file('image')->store('images/diaries', 'public');
+        $diary['user_id'] = Auth::id();
+        $diary->save();
+        return redirect('/');
     }
 }
