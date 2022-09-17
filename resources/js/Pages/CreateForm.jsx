@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const WhiteStyle = styled.div`
         background-color: white;
+        width: 100%;
     `;
 
 const DateStyle = styled.input`
