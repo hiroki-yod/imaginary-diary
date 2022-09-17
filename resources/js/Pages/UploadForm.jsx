@@ -120,11 +120,7 @@ export default React.forwardRef(function CreateForm(props, ref) {
                 </TitleWrapper>
                 <TextWrapper>
                     <TextStyle
-                        id="description"
-                        value={data.body}
-                        onChange={(e) => {
-                            setData("body", e.target.value);
-                        }}
+                        type="file"
                     >
 
                     </TextStyle>
@@ -137,10 +133,10 @@ export default React.forwardRef(function CreateForm(props, ref) {
 
                 <div className="flex justify-end pr-2">
                     <a
-                        href="/upload"
+                        href="/diary/create"
                         className="flex justify-center items-center postButton w-1/4 h-10 text-xs text-black font-bold rounded border border-black focus:outline-none focus:shadow-outline mr-2"
                     >
-                        手書き画像へ
+                        文字入力へ
                     </a>
                     <button
                         onClick={onSubmit}
