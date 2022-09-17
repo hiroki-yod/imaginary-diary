@@ -7,6 +7,7 @@ use App\Http\Requests\DiaryRequest;
 use App\Models\Diary;
 use App\Events\DiaryWrited;
 use Inertia\Inertia;
+use Functions;
 
 class DiaryController extends Controller
 {
@@ -47,6 +48,7 @@ class DiaryController extends Controller
         $diary->fill($input)->storeImage()->save();
         event(new DiaryWrited($diary));
         $page = Diary::where('year', '<=', $diary->year)->where('month', '<=', $diary->month)->where('day', '<=', $diary->day)->count();
+        Functions::toggleSwitch();
         return redirect()->route('index', ['page' => $page]);
     }
 
