@@ -12,17 +12,18 @@ const DateStyle = styled.input`
         border-right:none;
         border-left:none;
         border-top:none;
-        width: 30%;
+        font-size: 0.75rem;
+        width: 100%;
     `;
 
 const DateWrapper = styled.div`
         display: flex;
-        font-size: 15px;
+        font-size: 0.75rem;
         border-bottom:1px solid #cccccc;
         border-right:none;
         border-left:none;
         border-top:none;
-        width:40%;
+        width:50%;
         margin-left:auto;
         margin-right:10%;
     `;
@@ -45,26 +46,25 @@ const PStyle = styled.p`
     `
 
 const TextStyle = styled.textarea`
-        line-height: 20px;
+        line-height: 30px;
         background: linear-gradient(to bottom, #cccccc 1px, white 1px);
-        background-size: 100% 20px;
+        background-size: 100% 30px;
         background-origin: content-box;
         background-attachment: local;
         /* 枠線を消す */
         border: none;
-
         /* 右下の//(サイズ変更機能)を消す */
         resize: none;
-
         /* フォーカスした際の青い枠線を消す */
         outline: none;
-
         width: 100%;
-        height:65%;
+        height: 100%;
     `
 
 const TextWrapper = styled.div`
         width:85%;
+        margin-top: 5vh;
+        height:55vh;
         margin-left:auto;
         margin-right:auto;
     `
@@ -85,19 +85,22 @@ export default React.forwardRef(function CreateForm(props, ref) {
 
     return (
         <WhiteStyle ref={ref}>
-            <div class="create-wrapper">
+            <p class="form-title">松本家架空日記</p>
             <form
                 onSubmit={onSubmit}
             >
                 <DateWrapper>
                     <DateStyle type="text" value={data.year} onChange={(e) => {setData("year", e.target.value);}}/>
+                    <PStyle>年</PStyle>
                     {errors.year && (<div className="text-red-600">{errors.year}</div>)}
                     <DateStyle type="text" value={data.month} onChange={(e) => {setData("month", e.target.value);}}/>
+                    <PStyle>月</PStyle>
                     <DateStyle type="text" value={data.day} onChange={(e) => {setData("day", e.target.value);}}/>
+                    <PStyle>日</PStyle>
                     {errors.month && (<div className="text-red-600">{errors.date}</div>)}
                 </DateWrapper>
                 <TitleWrapper>
-                    {/* <TitleStyle
+                    <TitleStyle
                         id="title"
                         type="text"
                         value={data.title}
@@ -111,10 +114,10 @@ export default React.forwardRef(function CreateForm(props, ref) {
                         <div className="text-red-600">
                             {errors.title}
                         </div>
-                    )} */}
+                    )}
                 </TitleWrapper>
                 <TextWrapper>
-                    {/* <TextStyle
+                    <TextStyle
                         id="description"
                         value={data.body}
                         onChange={(e) => {
@@ -127,10 +130,10 @@ export default React.forwardRef(function CreateForm(props, ref) {
                         <div className="text-red-600">
                             {errors.body}
                         </div>
-                    )} */}
+                    )}
                 </TextWrapper>
 
-                {/* <div className="flex justify-end pr-2">
+                <div className="flex justify-end pr-2">
                     <button
                         onClick={onSubmit}
                         disabled={processing}
@@ -138,9 +141,8 @@ export default React.forwardRef(function CreateForm(props, ref) {
                     >
                         投稿
                     </button>
-                </div> */}
+                </div>
             </form>
-            </div>
         </WhiteStyle>
     );
 });

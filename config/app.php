@@ -212,6 +212,10 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    'aliases' => [
+        'Functions' => App\Libraries\Functions::class,
+    ],
+
     // 管理者アカウント情報
     'admin_email' => env('ADMIN_USER_EMAIL'),
     'admin_password' => env('ADMIN_USER_PASSWORD'),

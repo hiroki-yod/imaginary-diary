@@ -17,9 +17,9 @@
                         <a href="/diary/{{ $diary->id }}">{{ $diary->title }}</a>
                     </h2>
                     @if($diary->year < 0)
-                        <h3 class='diary-date'>紀元前{{ -1*$diary->year }}年@date_jp($diary->date)</h3>
+                        <h3 class='diary-date'>紀元前{{ -1*$diary->year }}年{{$diary->date}}</h3>
                     @else
-                        <h3 class='diary-date'>{{ $diary->year }}年@date_jp($diary->date)</h3>
+                        <h3 class='diary-date'>{{ $diary->year }}年{{$diary->date}}</h3>
                     @endif
                 </div>
             @endforeach
