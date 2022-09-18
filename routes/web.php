@@ -29,7 +29,7 @@ use App\Http\Controllers\DiaryController;
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified']);
 
 Route::middleware(['auth', 'can:isAdmin'])->group(function(){        //管理者用ページ
     Route::get('/admin/index', [AdminController::class, 'index']);

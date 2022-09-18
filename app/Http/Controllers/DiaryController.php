@@ -58,11 +58,13 @@ class DiaryController extends Controller
             $diary->fill($input_diary)->storeImage()->save();
         }
 
-        event(new DiaryWrited($diary));
         $page = Diary::where('year', '<', $diary->year)->count();
         $page += Diary::where('year', $diary->year)->where('month', '<', $diary->month)->count();
         $page += Diary::where('year', $diary->year)->where('month', $diary->month)->where('day', '<', $diary->day)->count();
-        Functions::toggleSwitch();
+
+        Functions::toggleSwitch();  //スイッチボット
+        event(new DiaryWrited($page));
+
         return redirect()->route('index', ['page' => $page]);
     }
 
@@ -79,11 +81,19 @@ class DiaryController extends Controller
     }
     public function store_image(ImageRequest $request, Diary $diary)
     {
-        $input_diary = $request['diary'];
+        $input_diary = $request->all();
         $diary->fill($input_diary);
-        $diary['image_path'] = $request->file('image')->store('images/diaries', 'public');
+        $diary['image_path'] = $request->file('image_path')->store('images/diaries', 'public');
         $diary['user_id'] = Auth::id();
         $diary->save();
-        return redirect('/');
+
+        $page = Diary::where('year', '<', $diary->year)->count();
+        $page += Diary::where('year', $diary->year)->where('month', '<', $diary->month)->count();
+        $page += Diary::where('year', $diary->year)->where('month', $diary->month)->where('day', '<', $diary->day)->count();
+
+        Functions::toggleSwitch();  //スイッチボット
+        event(new DiaryWrited($page));
+
+        return redirect()->route('index', ['page' => $page]);
     }
 }
