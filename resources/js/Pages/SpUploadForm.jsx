@@ -65,7 +65,7 @@ const TextStyle = styled.div`
 const TextWrapper = styled.div`
         width:85%;
         margin-top: 5vh;
-        height:55vh;
+        height:45vh;
         margin-left:auto;
         margin-right:auto;
     `
