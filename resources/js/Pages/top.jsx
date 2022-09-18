@@ -24,7 +24,9 @@ export default function Top(props) {
 
         //Pusherの処理。新しく投稿投稿されたら反応
         Echo.channel('chat').listen('DiaryWrited', e => {
-            get(`/display?page=${e.page}`);
+            if('/display' === url.substr(0,8)) {
+                get(`/display?page=${e.page}`);
+            }
         });
 
         //画面幅取得用関数
