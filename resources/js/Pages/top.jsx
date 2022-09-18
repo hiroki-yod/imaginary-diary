@@ -148,11 +148,17 @@ export default function Top(props) {
                     drawShadow={true}
                     ref={book}
                     flippingTime={flipSpeed}
-                    onInit={()=> {
+                    onInit={async()=> {
                         if(props.pageNumber){
                             const diaryNum = Number(props.pageNumber); //目的の日記までの日記の数
                             const contentsNum = Number(tenDividedDiaries.length);  //目次のページ数
                             flipMany(Math.trunc((diaryNum + contentsNum)/2 + 2), 280);
+                            console.log(url);
+                            if(url.substr(0,8) === '/display') {
+                                console.log('ok');
+                                await sleep(30000);
+                                flip(0);
+                            }
                         }
                     }}
                 >
