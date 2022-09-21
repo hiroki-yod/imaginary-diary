@@ -132,6 +132,12 @@ export default React.forwardRef(function CreateForm(props, ref) {
                 </TextWrapper>
 
                 <div className="flex justify-end pr-2">
+                    <Link
+                        href="/upload"
+                        className="flex justify-center items-center postButton w-1/4 h-10 text-xs text-black font-bold rounded border border-black focus:outline-none focus:shadow-outline mr-2"
+                    >
+                        画像投稿へ
+                    </Link>
                     <button
                         onClick={onSubmit}
                         disabled={processing}
