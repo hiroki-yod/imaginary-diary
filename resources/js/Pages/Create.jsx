@@ -3,6 +3,7 @@ import { Link, Head, useForm } from '@inertiajs/inertia-react';
 import './css/main.css';
 import CreateForm from './CreateForm';
 import SpCreateForm from './SpCreateForm';
+import Favicon from './css//image/favicon.png';
 import styled from 'styled-components';
 import { useMedia } from "react-use";
 
@@ -50,6 +51,7 @@ export default function Create(props) {
         <WhiteStyle>
             <Head>
                 <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
             </Head>
             <CreateForm/>
             <CreateForm/>
@@ -60,6 +62,7 @@ export default function Create(props) {
         <SpWhiteStyle>
             <Head>
                 <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
             </Head>
             <SpCreateForm/>
         </SpWhiteStyle>

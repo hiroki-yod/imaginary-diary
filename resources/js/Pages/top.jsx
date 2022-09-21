@@ -5,6 +5,7 @@ import Book1 from './css//image/white-diary.jpg';
 import Book2 from './css//image/IMG_4376.jpg';
 import Poster from './css//image/poster.png';
 import Poster2 from './css//image/diary-top.jpg';
+import Favicon from './css//image/favicon.png';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import CreateForm from './CreateForm';
@@ -143,6 +144,7 @@ export default function Top(props) {
             </div>
             <Head>
                 <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
             </Head>
             <BookStyle>
                 <HTMLFlipBook
@@ -249,6 +251,7 @@ export default function Top(props) {
         <div className='content'>
             <Head>
                 <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
             </Head>
             <SpBookStyle>
                 <HTMLFlipBook
