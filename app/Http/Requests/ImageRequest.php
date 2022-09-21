@@ -11,10 +11,6 @@ class ImageRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
-        return true;
-    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,9 +20,9 @@ class ImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'diary.year' => 'required',
-            'diary.month' => 'required',
-            'diary.day' => 'required',
+            'year' => 'required',
+            'month' => 'required',
+            'day' => 'required',
         ];
     }
 }

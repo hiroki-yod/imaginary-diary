@@ -14,15 +14,15 @@ class DiaryWrited implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $diary;
+    public $page;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Diary $diary)
+    public function __construct($page)
     {
-        $this->diary = $diary;
+        $this->page = $page;
     }
 
     /**

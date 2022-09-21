@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react"
 import { Link, Head, useForm } from '@inertiajs/inertia-react';
 import './css/main.css';
 import UploadForm from './UploadForm';
-import SpCreateForm from './SpCreateForm';
+import SpUploadForm from './SpUploadForm';
 import styled from 'styled-components';
 import { useMedia } from "react-use";
 
@@ -61,7 +61,7 @@ export default function Create(props) {
             <Head>
                 <title>松本家架空日記</title>
             </Head>
-            <SpCreateForm/>
+            <SpUploadForm/>
         </SpWhiteStyle>
     );
 
