@@ -136,6 +136,9 @@ export default function Top(props) {
             <div className="paper">
                 <img src={Poster2} alt="" />
             </div>
+            <Head>
+                <title>松本家架空日記</title>
+            </Head>
             <BookStyle>
                 <HTMLFlipBook
                     usePortrait={false}
@@ -231,6 +234,9 @@ export default function Top(props) {
 
     const smartphone = (
         <div className='content'>
+            <Head>
+                <title>松本家架空日記</title>
+            </Head>
             <SpBookStyle>
                 <HTMLFlipBook
                     width={windowDimensions.width * 0.9}

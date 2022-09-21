@@ -48,6 +48,9 @@ export default function Create(props) {
 
     const pc = (
         <WhiteStyle>
+            <Head>
+                <title>松本家架空日記</title>
+            </Head>
             <CreateForm/>
             <CreateForm/>
         </WhiteStyle>
@@ -55,6 +58,9 @@ export default function Create(props) {
 
     const smartphone = (
         <SpWhiteStyle>
+            <Head>
+                <title>松本家架空日記</title>
+            </Head>
             <SpCreateForm/>
         </SpWhiteStyle>
     );
