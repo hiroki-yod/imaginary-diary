@@ -33,7 +33,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'can:isAdmin'])->group(function(){        //管理者用ページ
     Route::get('/admin/index', [AdminController::class, 'index']);
-    Route::delete('/admin/{Diary}', [AdminController::class, 'delete']);
+    Route::delete('/admin/{diary}', [AdminController::class, 'delete']);
 });
 
 Route::get('/', [DiaryController::class, 'top'])->name('index');         //一覧表示
