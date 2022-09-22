@@ -265,7 +265,7 @@ export default function Top(props) {
                         if(props.pageNumber){
                             const diaryNum = Number(props.pageNumber); //何番目の日記かを表す
                             const contentsNum = Number(tenDividedDiaries.length);  //目次のページ数
-                            flipMany(Math.trunc((diaryNum + 3 + contentsNum)/2), 280);
+                            flipMany(Math.trunc(diaryNum + contentsNum + 3), 280);
                         }
                     }}
                 >
@@ -288,7 +288,7 @@ export default function Top(props) {
                                 <button  onClick={randomOpen}>
                                     <h1 className="sp-menu">日記を開く</h1>
                                 </button>
-                                <p className="sp">Name
+                                <p className="sp">
                                     投稿された架空日記がランダムに開かれます
                                 </p>
                             </div>
