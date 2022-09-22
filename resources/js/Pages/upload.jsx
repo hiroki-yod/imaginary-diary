@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from "react"
 import { Link, Head, useForm } from '@inertiajs/inertia-react';
 import './css/main.css';
 import UploadForm from './UploadForm';
-import SpCreateForm from './SpCreateForm';
+import SpUploadForm from './SpUploadForm';
+import Favicon from './css//image/favicon.png';
 import styled from 'styled-components';
 import { useMedia } from "react-use";
 
@@ -48,6 +49,10 @@ export default function Create(props) {
 
     const pc = (
         <WhiteStyle>
+            <Head>
+                <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
+            </Head>
             <UploadForm/>
             <UploadForm/>
         </WhiteStyle>
@@ -55,7 +60,11 @@ export default function Create(props) {
 
     const smartphone = (
         <SpWhiteStyle>
-            <SpCreateForm/>
+            <Head>
+                <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
+            </Head>
+            <SpUploadForm/>
         </SpWhiteStyle>
     );
 

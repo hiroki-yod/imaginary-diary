@@ -1,28 +1,33 @@
 import React, { useRef, useState, useEffect } from "react"
-import { Link, Head } from '@inertiajs/inertia-react';
+import {Link, Head, useForm} from '@inertiajs/inertia-react';
 import './css/main.css';
 import Book1 from './css//image/white-diary.jpg';
 import Book2 from './css//image/IMG_4376.jpg';
 import Poster from './css//image/poster.png';
 import Poster2 from './css//image/diary-top.jpg';
+import Favicon from './css//image/favicon.png';
 import HTMLFlipBook from 'react-pageflip';
 import styled from 'styled-components';
 import CreateForm from './CreateForm';
 import { Inertia } from '@inertiajs/inertia';
 import { useMedia } from "react-use";
-
-
+import { usePage } from "@inertiajs/inertia-react";
 
 export default function Top(props) {
+    const { get } = useForm({});
+    const { url } = usePage(); //現在のルーティングの取得
+
     const isWide = useMedia("(min-width: 440px)"); // useMediaの指定の仕方を修正
+
     //画面がロードされた時に行う処理
     useEffect(() => {
         arryDivide(dummyArr, 10); //tenDividedDiariesというstateに10個ずつ日記データを入れていく
 
         //Pusherの処理。新しく投稿投稿されたら反応
         Echo.channel('chat').listen('DiaryWrited', e => {
-            //投稿されたページまでめくっていく
-            flipMany(tenDividedDiaries.length + props.diaries.length + 3);
+            if('/display' === url.substr(0,8)) {
+                get(`/display?page=${e.page}`);
+            }
         });
 
         //画面幅取得用関数
@@ -46,9 +51,13 @@ export default function Top(props) {
 
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions()); //高さと横幅をstateに入れる
 
-    //ここからstyled-component。つまりcss。
 
-    //日記の画像用
+    const [tenDividedDiaries, setTenDividedDiaries] = useState([]); //日記用データを分割して入れるstate
+
+    const dummyArr = [].concat(props.diaries);  //日記用データのコピー。これに破壊的変更を加えていく。
+
+//ここからstyled-component。つまりcss。
+//日記の画像用
     const ImgStyle = styled.img`
         width: ${windowDimensions.width * 0.64 * 0.5}px;
         height:${windowDimensions.height * 0.90}px;
@@ -59,7 +68,7 @@ export default function Top(props) {
         height:${windowDimensions.width * 0.9 * 1.5}px;
     `;
 
-    //日記のやつ
+//日記のやつ
     const BookStyle = styled.div`
         margin: 3vh 17vw 0vh 17vw;
     `;
@@ -68,17 +77,13 @@ export default function Top(props) {
         margin: 3vh 5vw 0vh 5vw;
     `;
 
-    //白背景
+//白背景
     const WhiteStyle = styled.div`
         background-color: white;
         text-align: center;
     `;
 
-    const [tenDividedDiaries, setTenDividedDiaries] = useState([]); //日記用データを分割して入れるstate
-
-    const dummyArr = [].concat(props.diaries);  //日記用データのコピー。これに破壊的変更を加えていく。
-
-    //配列を分割してtenDivideDiariesに代入していく関数
+    //配列を分割してtenDividedDiariesに代入していく関数
     function arryDivide(arr, num) {
         let tmpArr;  //10個ずつ切り取ったやつ
         let tmpDivide = []; //一時的に10個ずつ日記データを入れていく配列
@@ -107,6 +112,7 @@ export default function Top(props) {
         }
     }
 
+    //ランダムなページを開く
     function randomOpen() {
         const randRange = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
         const randomNumber =randRange(1, Number(props.diaries.length));
@@ -136,6 +142,10 @@ export default function Top(props) {
             <div className="paper">
                 <img src={Poster2} alt="" />
             </div>
+            <Head>
+                <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
+            </Head>
             <BookStyle>
                 <HTMLFlipBook
                     usePortrait={false}
@@ -145,19 +155,27 @@ export default function Top(props) {
                     drawShadow={true}
                     ref={book}
                     flippingTime={flipSpeed}
-                    onInit={()=> {
+                    onInit={async()=> {
                         if(props.pageNumber){
-                            flipMany(Math.trunc((Number(props.pageNumber) + 3 + Number(tenDividedDiaries.length))/2), 280);
+                            const diaryNum = Number(props.pageNumber); //目的の日記までの日記の数
+                            const contentsNum = Number(tenDividedDiaries.length);  //目次のページ数
+                            flipMany(Math.trunc((diaryNum + contentsNum)/2 + 2), 280);
+                            console.log(url);
+                            if(url.substr(0,8) === '/display') {
+                                console.log('ok');
+                                await sleep(30000);
+                                flip(0);
+                            }
                         }
                     }}
                 >
                     <div className="demoPage"><ImgStyle src={Poster}/></div>
                     <div className="demoPage"><ImgStyle src={Poster2}/></div>
                     <WhiteStyle>
-                        <div class="menu-1">
+                        <div className="menu-1">
                             <div>
                                 <button  onClick={() => flip(2)}>
-                                    <h1 class="menu">一覧を見る</h1>
+                                    <h1 className="menu">一覧を見る</h1>
                                 </button>
                                 <p>
                                     『松本家架空日記』の目次までページがめくられます
@@ -165,37 +183,37 @@ export default function Top(props) {
                             </div>
                         </div>
 
-                        <div class="menu-2">
+                        <div className="menu-2">
                             <div>
                                 <button  onClick={randomOpen}>
-                                    <h1 class="menu">日記を開く</h1>
+                                    <h1 className="menu">日記を開く</h1>
                                 </button>
                                 <p>
                                     投稿された架空日記がランダムに開かれます
                                 </p>
                             </div>
                         </div>
-                        
-                        <div class="menu-3">
+
+                        <div className="menu-3">
                             <div>
                                 <button onClick={async() => {
                                     flip(3);
                                     await sleep(1000);
                                     Inertia.get('/diary/create')
                                 }}>
-                                    <h1  class="menu">日記を書く</h1>
+                                    <h1  className="menu">日記を書く</h1>
                                 </button>
                                 <p>
                                     ユーザー登録の後に日記を投稿することができます
                                 </p>
                             </div>
                         </div>
-                        <div class="menu-4">
+                        <div className="menu-4">
                             <div>
                                 <button onClick={async() => {
                                     Inertia.get('/register')
                                 }}>
-                                    <h1  class="menu">ユーザー登録</h1>
+                                    <h1  className="menu">ユーザー登録</h1>
                                 </button>
                                 <p>
                                     日記を投稿するための名前を記入することができます
@@ -205,10 +223,10 @@ export default function Top(props) {
                     </WhiteStyle>
                     {tenDividedDiaries.map((diaries, index) => (
                         <WhiteStyle>
-                            <div class="index">
+                            <div className="index">
                                 <h1>目次</h1>
                             {diaries.map((diary, i) => (
-                                <div class="index-title">
+                                <div className="index-title">
                                     <button onClick={() => {flip(index*10 + 3 + tenDividedDiaries.length + i)}}>{diary.title}</button>
                                 </div>
                             ))}
@@ -231,6 +249,10 @@ export default function Top(props) {
 
     const smartphone = (
         <div className='content'>
+            <Head>
+                <title>松本家架空日記</title>
+                <link rel="icon" href={Favicon} />
+            </Head>
             <SpBookStyle>
                 <HTMLFlipBook
                     width={windowDimensions.width * 0.9}
@@ -241,57 +263,59 @@ export default function Top(props) {
                     flippingTime={flipSpeed}
                     onInit={()=> {
                         if(props.pageNumber){
-                            flipMany(Math.trunc((Number(props.pageNumber) + 3 + Number(tenDividedDiaries.length))/2), 280);
+                            const diaryNum = Number(props.pageNumber); //何番目の日記かを表す
+                            const contentsNum = Number(tenDividedDiaries.length);  //目次のページ数
+                            flipMany(Math.trunc((diaryNum + 3 + contentsNum)/2), 280);
                         }
                     }}
                 >
                     <div className="demoPage"><SpImgStyle src={Poster}/></div>
                     <div className="demoPage"><SpImgStyle src={Poster2}/></div>
                     <WhiteStyle>
-                        <div class="menu-1">
+                        <div className="menu-1">
                             <div>
                                 <button  onClick={() => flip(2)}>
-                                    <h1 class="sp-menu">一覧を見る</h1>
+                                    <h1 className="sp-menu">一覧を見る</h1>
                                 </button>
-                                <p class="sp">
+                                <p className="sp">
                                     『松本家架空日記』の目次までページがめくられます
                                 </p>
                             </div>
                         </div>
 
-                        <div class="menu-2">
+                        <div className="menu-2">
                             <div>
                                 <button  onClick={randomOpen}>
-                                    <h1 class="sp-menu">日記を開く</h1>
+                                    <h1 className="sp-menu">日記を開く</h1>
                                 </button>
-                                <p class="sp">
+                                <p className="sp">Name
                                     投稿された架空日記がランダムに開かれます
                                 </p>
                             </div>
                         </div>
-                        
-                        <div class="menu-3">
+
+                        <div className="menu-3">
                             <div>
                                 <button onClick={async() => {
                                     flip(3);
                                     await sleep(1000);
                                     Inertia.get('/diary/create')
                                 }}>
-                                    <h1  class="sp-menu">日記を書く</h1>
+                                    <h1  className="sp-menu">日記を書く</h1>
                                 </button>
-                                <p class="sp">
+                                <p className="sp">
                                     ユーザー登録の後に日記を投稿することができます
                                 </p>
                             </div>
                         </div>
-                        <div class="menu-4">
+                        <div className="menu-4">
                             <div>
                                 <button onClick={async() => {
                                     Inertia.get('/register')
                                 }}>
-                                    <h1  class="sp-menu">ユーザー登録</h1>
+                                    <h1  className="sp-menu">ユーザー登録</h1>
                                 </button>
-                                <p class="sp">
+                                <p className="sp">
                                     日記を投稿するための名前を記入することができます
                                 </p>
                             </div>
@@ -299,10 +323,10 @@ export default function Top(props) {
                     </WhiteStyle>
                     {tenDividedDiaries.map((diaries, index) => (
                         <WhiteStyle>
-                            <div class="index">
+                            <div className="index">
                                 <h1>目次</h1>
                             {diaries.map((diary, i) => (
-                                <div class="sp-index-title">
+                                <div className="sp-index-title">
                                     <button onClick={() => {flip(index*10 + 3 + tenDividedDiaries.length + i)}}>{diary.title}</button>
                                 </div>
                             ))}
